@@ -4,6 +4,7 @@ import { useParams, Navigate } from "react-router-dom";
 import { getUserByHandle } from "../api/DevTreeAPI";
 import type { SocialNetwork } from "../types";
 import Skeleton from "../components/Skeleton";
+import Footer from "../components/Footer";
 
 export default function HandleView() {
   const { handle } = useParams();
@@ -75,6 +76,7 @@ if (isLoading) return (
             </p>
           )}
         </div>
+        <Footer />
       </div>
       </>
     );

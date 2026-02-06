@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Logo from "../components/Logo";
 import { Toaster } from 'sonner'
+import Footer from "../components/Footer";
 
 export default function AuthLayout() {
   return (
@@ -79,6 +80,7 @@ export default function AuthLayout() {
               <Outlet />
             </div>
           </div>
+          <Footer />
         </div>
       </div>
       <Toaster 
