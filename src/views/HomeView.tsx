@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import api from "../config/axios";
 
 export default function HomeView() {
+  useEffect(() => {
+    // Esto "despierta" el backend si está en un hosting gratuito
+    api.get('/health').catch(() => {}); 
+  }, []);
   return (
     <>
       <div className="min-h-screen bg-white">
