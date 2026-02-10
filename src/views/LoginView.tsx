@@ -28,7 +28,7 @@ export default function LoginView() {
   const handleLogin = async (data: LoginForm) => {
     setIsLoggingIn(true);
     try {
-      const { data: res } = await api.post(`/auth/login`, data);
+      const { data: res } = await api.post<string>(`/auth/login`, data);
       localStorage.setItem("AUTH_TOKEN", res);
       //redireccionar a la página principal
       // await queryClient.invalidateQueries({ queryKey: ["user"] });
