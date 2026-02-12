@@ -6,6 +6,13 @@ export type User = {
   description: string;
   image: string;
   links: string;
+  theme: {
+    id: string;
+    name: string;
+    bg: string;
+    text: string;
+    button: string;
+  }
 };
 
 export type UserHandle = Pick<User, "handle" | "name"  | "description" | "image">
@@ -18,7 +25,7 @@ export type LoginForm = Pick<User, "email"> & {
   password: string;
 };
 
-export type ProfileForm = Pick<User, "handle" | "description">;
+export type ProfileForm = Pick<User, "handle" | "description" | "theme">;
 
 export type SocialNetwork= {
   id: number;
