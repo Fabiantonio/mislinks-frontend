@@ -23,29 +23,29 @@ export default function HomeView() {
   
   return (
     <>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-slate-950">
         <Header />
 
         <main className="mx-auto max-w-5xl px-5 lg:px-0 pt-20 pb-32">
           <div className="flex flex-col items-center text-center animate-fade-in">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 mb-8">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-500"></span>
               </span>
-              <span className="text-[10px] font-black text-slate-600 uppercase tracking-wider">
+              <span className="text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                 simple y seguro
               </span>
             </div>
 
             {/* Hero Content */}
-            <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-8 leading-[1.05] tracking-tight max-w-3xl">
+            <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-8 leading-[1.05] tracking-tight max-w-3xl">
               Todos tus enlaces en{" "}
-              <span className="text-slate-500">un solo lugar.</span>
+              <span className="text-slate-500 dark:text-slate-400">un solo lugar.</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-slate-600 mb-12 leading-relaxed font-medium max-w-2xl">
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12 leading-relaxed font-medium max-w-2xl">
               Crea tu página personalizada de enlaces en segundos. Comparte tu
               perfil con el mundo de forma elegante y profesional.
             </p>
@@ -53,13 +53,13 @@ export default function HomeView() {
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link
                 to="/auth/register"
-                className="bg-slate-900 text-white px-10 py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-all active:scale-[0.98] shadow-xl shadow-slate-900/20"
+                className="bg-slate-900 text-white px-10 py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-all active:scale-[0.98] shadow-xl shadow-slate-900/20 dark:shadow-none"
               >
                 Registrate
               </Link>
               <Link
                 to="/auth/login"
-                className="bg-white text-slate-900 border border-slate-200 px-10 py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-slate-50 transition-all active:scale-[0.98]"
+                className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 px-10 py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-[0.98]"
               >
                 Iniciar Sesión
               </Link>
@@ -67,15 +67,15 @@ export default function HomeView() {
 
             {/* Features Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-32 w-full text-left">
-              <div className="p-8 rounded-3xl border border-slate-100 bg-slate-50/50">
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center mb-6 shadow-sm">
+              <div className="p-8 rounded-3xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-6 shadow-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={2}
                     stroke="currentColor"
-                    className="w-5 h-5 text-slate-900"
+                    className="w-5 h-5 text-slate-900 dark:text-white"
                   >
                     <path
                       strokeLinecap="round"
@@ -84,23 +84,23 @@ export default function HomeView() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-2">
+                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider mb-2">
                   Rápido
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                   Configura tu perfil en menos de 2 minutos sin complicaciones.
                 </p>
               </div>
 
-              <div className="p-8 rounded-3xl border border-slate-100 bg-slate-50/50">
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center mb-6 shadow-sm">
+              <div className="p-8 rounded-3xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-6 shadow-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={2}
                     stroke="currentColor"
-                    className="w-5 h-5 text-slate-900"
+                    className="w-5 h-5 text-slate-900 dark:text-white"
                   >
                     <path
                       strokeLinecap="round"
@@ -109,23 +109,23 @@ export default function HomeView() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-2">
+                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider mb-2">
                   Seguro
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                   Tus datos y enlaces están protegidos con tecnología moderna.
                 </p>
               </div>
 
-              <div className="p-8 rounded-3xl border border-slate-100 bg-slate-50/50">
-                <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 flex items-center justify-center mb-6 shadow-sm">
+              <div className="p-8 rounded-3xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-6 shadow-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={2}
                     stroke="currentColor"
-                    className="w-5 h-5 text-slate-900"
+                    className="w-5 h-5 text-slate-900 dark:text-white"
                   >
                     <path
                       strokeLinecap="round"
@@ -134,10 +134,10 @@ export default function HomeView() {
                     />
                   </svg>
                 </div>
-                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-2">
+                <h3 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-wider mb-2">
                   Responsivo
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                   Tu perfil se verá increíble en cualquier dispositivo móvil o
                   PC.
                 </p>

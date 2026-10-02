@@ -10,7 +10,7 @@ export default function AdminNavigation() {
 
   return (
     <button
-      className="text-slate-500 hover:text-slate-900 text-xs font-black uppercase tracking-[0.15em] transition-colors"
+      className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white text-xs font-black uppercase tracking-[0.15em] transition-colors"
       onClick={logout}
     >
       Cerrar Sesión

@@ -16,8 +16,8 @@ export default function Logo() {
         </svg>
         <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-slate-400 rounded-full border-2 border-white"></div>
       </div>
-      <span className="text-xl font-black text-slate-900 tracking-tighter">
-        Mis<span className="text-slate-500">Links</span>
+      <span className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">
+        Mis<span className="text-slate-500 dark:text-slate-400">Links</span>
       </span>
     </Link>
   )

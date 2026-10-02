@@ -51,17 +51,17 @@ export default function MisLinks({ user }: MisLinksProps) {
     <>
       <Header />
 
-      <div className="bg-white min-h-screen py-10">
+      <div className="bg-white dark:bg-slate-950 min-h-screen py-10">
         <main className="mx-auto max-w-5xl px-5 lg:px-0">
           <NavigationTabs />
 
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-8 pb-6 border-b border-slate-200">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-8 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-3">
-              <span className="text-[11px] font-black text-slate-500 uppercase tracking-widest">
+              <span className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
                 Tu link:
               </span>
-              <div className="flex items-center gap-2 bg-slate-50 border border-slate-300 rounded-full px-4 py-1.5 transition-all hover:border-slate-400 group">
-                <span className="text-slate-900 font-bold text-sm">
+              <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-full px-4 py-1.5 transition-all hover:border-slate-400 dark:hover:border-slate-600 group">
+                <span className="text-slate-900 dark:text-white font-bold text-sm">
                   {user.handle}
                 </span>
                 <button
@@ -71,7 +71,7 @@ export default function MisLinks({ user }: MisLinksProps) {
                     );
                     toast.success("Enlace copiado");
                   }}
-                  className="text-slate-400 hover:text-slate-900 transition-colors"
+                  className="text-slate-400 hover:text-slate-900 dark:text-slate-500 dark:hover:text-white transition-colors"
                   title="Copiar"
                 >
                   <svg
@@ -92,7 +92,7 @@ export default function MisLinks({ user }: MisLinksProps) {
               </div>
             </div>
             <Link
-              className="text-[11px] font-black text-slate-500 uppercase tracking-widest hover:text-slate-900 transition-colors flex items-center gap-2 group"
+              className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-2 group"
               to={`/${user.handle}`}
               target="_blank"
               rel="noreferrer noopener"
@@ -121,36 +121,36 @@ export default function MisLinks({ user }: MisLinksProps) {
             </div>
 
             <aside className="w-full md:w-80 order-1 md:order-2">
-              <div className="sticky top-24 bg-white rounded-3xl p-8 border border-slate-200 shadow-xl shadow-slate-200/40">
+              <div className="sticky top-24 bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none">
                 <div className="relative flex flex-col items-center text-center">
                   {user.image ? (
                     <div className="mb-6">
                       <img
                         src={user.image}
-                        className="w-32 h-32 rounded-full object-cover border border-slate-200 p-1.5 bg-white shadow-sm"
+                        className="w-32 h-32 rounded-full object-cover border border-slate-200 dark:border-slate-700 p-1.5 bg-white dark:bg-slate-900 shadow-sm"
                         alt={user.handle}
                       />
                     </div>
                   ) : (
-                    <div className="w-32 h-32 rounded-full bg-slate-100 flex items-center justify-center border border-slate-200 mb-6">
-                      <span className="text-4xl text-slate-400 font-bold uppercase">
+                    <div className="w-32 h-32 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 mb-6">
+                      <span className="text-4xl text-slate-400 dark:text-slate-500 font-bold uppercase">
                         {user.handle[0]}
                       </span>
                     </div>
                   )}
 
                   <div className="space-y-1 mb-6">
-                    <h2 className="text-xl font-black text-slate-900 tracking-tight">
+                    <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
                       {user.name}
                     </h2>
-                    <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">
+                    <p className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
                       @{user.handle}
                     </p>
                   </div>
 
-                  <div className="w-12 h-1 bg-slate-200 rounded-full mb-6"></div>
+                  <div className="w-12 h-1 bg-slate-200 dark:bg-slate-700 rounded-full mb-6"></div>
 
-                  <p className="text-slate-600 text-sm mb-8 leading-relaxed font-medium">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm mb-8 leading-relaxed font-medium">
                     {user.description ||
                       "Personaliza tu perfil añadiendo una descripción."}
                   </p>
@@ -169,8 +169,8 @@ export default function MisLinks({ user }: MisLinksProps) {
                             <MisLinksList key={link.name} link={link} />
                           ))
                         ) : (
-                          <div className="py-8 border-2 border-dashed border-slate-200 rounded-2xl">
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                          <div className="py-8 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
                               Sin enlaces activos
                             </p>
                           </div>

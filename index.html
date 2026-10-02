@@ -26,6 +26,17 @@
     <meta property="twitter:title" content="MisLinks | Todos tus enlaces en un solo lugar" />
     <meta property="twitter:description" content="Organiza tus redes sociales y enlaces importantes en una sola página minimalista y profesional." />
     <meta property="twitter:image"/>
+
+    <script>
+      (function () {
+        var stored = localStorage.getItem("THEME");
+        var dark =
+          stored === "dark" ||
+          (stored !== "light" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", dark);
+      })();
+    </script>
   </head>
   <body>
    <div id="root"></div>

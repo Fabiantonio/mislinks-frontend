@@ -7,6 +7,9 @@ import { toast } from "sonner";
 import Spinner from "../components/Spinner";
 import { themes } from "../data/themes";
 
+const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB
+const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/gif"];
+
 export default function ProfileView() {
   const queryClient = useQueryClient();
   const data: User = queryClient.getQueryData(["user"])!;
@@ -51,10 +54,22 @@ export default function ProfileView() {
   });
 
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      uploadImageMutation.mutate(file);
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      toast.error("Formato no válido. Usa PNG, JPG o GIF.");
+      e.target.value = "";
+      return;
     }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+      toast.error("La imagen no puede superar los 2MB.");
+      e.target.value = "";
+      return;
+    }
+
+    uploadImageMutation.mutate(file);
   };
 
   const handleUserProfile = (formData: ProfileForm) => {
@@ -76,27 +91,27 @@ export default function ProfileView() {
 
   return (
     <>
-      <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-100 dark:border-slate-800 shadow-sm">
         <form
           className="space-y-6"
           onSubmit={handleSubmit(handleUserProfile)}
           noValidate
         >
-          <legend className="text-xl font-black text-slate-900 uppercase tracking-widest text-center mb-8">
+          <legend className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-widest text-center mb-8">
             Editar Perfil
           </legend>
 
           <div className="space-y-2">
             <label
               htmlFor="handle"
-              className="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1"
+              className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1"
             >
               Nombre de Usuario
             </label>
             <input
               type="text"
               id="handle"
-              className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm font-bold text-slate-900 outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400 shadow-sm"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-slate-900 dark:focus:border-white focus:ring-1 focus:ring-slate-900 dark:focus:ring-white transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm"
               placeholder="Tu nombre de usuario"
               {...register("handle", {
                 required: "El handle es requerido",
@@ -108,13 +123,13 @@ export default function ProfileView() {
           <div className="space-y-2">
             <label
               htmlFor="description"
-              className="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1"
+              className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1"
             >
               Descripción
             </label>
             <textarea
               id="description"
-              className="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm font-bold text-slate-900 outline-none focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-all placeholder:text-slate-400 shadow-sm min-h-[100px] resize-none"
+              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl p-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-slate-900 dark:focus:border-white focus:ring-1 focus:ring-slate-900 dark:focus:ring-white transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm min-h-[100px] resize-none"
               placeholder="Cuéntanos algo sobre ti"
               {...register("description", {
                 required: "La descripción es requerida",
@@ -128,11 +143,11 @@ export default function ProfileView() {
           <div className="space-y-2">
             <label
               htmlFor="image"
-              className="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1"
+              className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1"
             >
               Imagen de Perfil
             </label>
-            <div className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-300 rounded-xl shadow-sm">
+            <div className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl shadow-sm">
               <input
                 type="file"
                 id="image"
@@ -142,20 +157,20 @@ export default function ProfileView() {
               />
               <label
                 htmlFor="image"
-                className="px-4 py-2 bg-white border border-slate-300 rounded-lg text-xs font-black text-slate-700 uppercase tracking-wider hover:bg-slate-100 hover:border-slate-400 cursor-pointer transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-600 cursor-pointer transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {uploadImageMutation.isPending
                   ? "Subiendo..."
                   : "Seleccionar Archivo"}
               </label>
-              <span className="text-xs font-bold text-slate-400 italic">
+              <span className="text-xs font-bold text-slate-400 dark:text-slate-500 italic">
                 PNG, JPG o GIF. Máx 2MB.
               </span>
             </div>
           </div>
 
           <div className="space-y-4">
-            <label className="text-[11px] font-black text-slate-500 uppercase tracking-widest ml-1">
+            <label className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">
               Tema del Perfil
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -173,11 +188,16 @@ export default function ProfileView() {
                     className={`
                       block w-full h-24 rounded-xl border-2 cursor-pointer transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98]
                       ${theme.bg}
-                      peer-checked:border-slate-900 peer-checked:ring-2 peer-checked:ring-slate-900 peer-checked:ring-offset-2
-                      border-slate-200
-                      flex flex-col justify-end p-2
+                      peer-checked:border-slate-900 dark:peer-checked:border-white peer-checked:ring-2 peer-checked:ring-slate-900 dark:peer-checked:ring-white peer-checked:ring-offset-2 dark:peer-checked:ring-offset-slate-900
+                      border-slate-200 dark:border-slate-700
+                      flex flex-col justify-between p-2
                     `}
                   >
+                    <span
+                      className={`self-start text-[9px] font-bold px-2 py-1 rounded-md ${theme.button}`}
+                    >
+                      Link
+                    </span>
                     <span className={`text-[10px] font-bold uppercase tracking-wider ${theme.text}`}>
                       {theme.name}
                     </span>
@@ -189,7 +209,7 @@ export default function ProfileView() {
 
           <button
             type="submit"
-            className="w-full bg-slate-900 text-white py-4 rounded-xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-all active:scale-[0.98] shadow-lg shadow-slate-900/20 mt-8 flex justify-center items-center h-[52px]"
+            className="w-full bg-slate-900 text-white py-4 rounded-xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-all active:scale-[0.98] shadow-lg shadow-slate-900/20 dark:shadow-none mt-8 flex justify-center items-center h-[52px]"
             disabled={updateProfileMutation.isPending}
           >
             {updateProfileMutation.isPending ? <Spinner /> : "Guardar Cambios"}

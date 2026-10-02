@@ -10,6 +10,7 @@ export async function getUser() {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
     }
+    throw new Error("No se pudo conectar con el servidor");
   }
 }
 
@@ -21,6 +22,7 @@ export async function getUserByHandle(handle: string) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
     }
+    throw new Error("No se pudo conectar con el servidor");
   }
 }
 
@@ -32,6 +34,7 @@ export async function updateProfile(formData: User) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
     }
+    throw new Error("No se pudo conectar con el servidor");
   }
 }
 
@@ -47,5 +50,6 @@ export async function uploadImage(file: File) {
     if (isAxiosError(error) && error.response) {
       throw new Error(error.response.data.error);
     }
+    throw new Error("No se pudo conectar con el servidor");
   }
 }

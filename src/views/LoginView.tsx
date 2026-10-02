@@ -34,8 +34,10 @@ export default function LoginView() {
       // await queryClient.invalidateQueries({ queryKey: ["user"] });
       navigate("/admin");
     } catch (error) {
-      if (isAxiosError(error)) {
-        toast.error(error.response?.data.error);
+      if (isAxiosError(error) && error.response) {
+        toast.error(error.response.data.error);
+      } else {
+        toast.error("No se pudo conectar con el servidor");
       }
     } finally {
       setIsLoggingIn(false);
@@ -44,10 +46,10 @@ export default function LoginView() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-slate-900 text-center mb-2">
+      <h1 className="text-2xl font-bold text-slate-900 dark:text-white text-center mb-2">
         Iniciar Sesión
       </h1>
-      <p className="text-slate-600 text-center mb-10 text-sm font-medium">
+      <p className="text-slate-600 dark:text-slate-400 text-center mb-10 text-sm font-medium">
         Ingresa tus credenciales para acceder
       </p>
 
@@ -58,13 +60,13 @@ export default function LoginView() {
       >
         <div className="space-y-1.5">
           <label
-            className="text-xs font-black text-slate-500 uppercase tracking-wider ml-1"
+            className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider ml-1"
             htmlFor="email"
           >
             Email
           </label>
           <div className="relative group">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-focus-within:text-slate-900 dark:group-focus-within:text-white transition-colors">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -81,7 +83,7 @@ export default function LoginView() {
               </svg>
             </div>
             <input
-              className="w-full border-b-2 border-slate-200 py-3 pl-10 outline-none focus:border-slate-900 transition-all placeholder:text-slate-400 font-bold text-slate-900 bg-transparent"
+              className="w-full border-b-2 border-slate-200 dark:border-slate-700 py-3 pl-10 outline-none focus:border-slate-900 dark:focus:border-white transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 font-bold text-slate-900 dark:text-white bg-transparent"
               type="email"
               id="email"
               placeholder="email@ejemplo.com"
@@ -99,13 +101,13 @@ export default function LoginView() {
 
         <div className="space-y-1.5">
           <label
-            className="text-xs font-black text-slate-500 uppercase tracking-wider ml-1"
+            className="text-xs font-black text-slate-500 dark:text-slate-400 uppercase tracking-wider ml-1"
             htmlFor="password"
           >
             Password
           </label>
           <div className="relative group">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-slate-900 transition-colors">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-focus-within:text-slate-900 dark:group-focus-within:text-white transition-colors">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -122,7 +124,7 @@ export default function LoginView() {
               </svg>
             </div>
             <input
-              className="w-full border-b-2 border-slate-200 py-3 pl-10 outline-none focus:border-slate-900 transition-all placeholder:text-slate-400 font-bold text-slate-900 bg-transparent"
+              className="w-full border-b-2 border-slate-200 dark:border-slate-700 py-3 pl-10 outline-none focus:border-slate-900 dark:focus:border-white transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 font-bold text-slate-900 dark:text-white bg-transparent"
               type="password"
               id="password"
               placeholder="••••••••"
@@ -145,7 +147,7 @@ export default function LoginView() {
 
       <nav className="mt-10 flex flex-col items-center space-y-4">
         <Link
-          className="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-900 transition-colors"
+          className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest hover:text-slate-900 dark:hover:text-white transition-colors"
           to="/auth/register"
         >
           ¿No tienes cuenta? Regístrate

@@ -65,6 +65,17 @@ export default function MisLinksView() {
     });
   };
 
+  const handleSave = () => {
+    const invalidLink = socialLinks.find(
+      (link) => link.enabled && !isValidUrl(link.url),
+    );
+    if (invalidLink) {
+      toast.error(`La URL de ${invalidLink.name} no es válida`);
+      return;
+    }
+    mutate(user);
+  };
+
   return (
     <div>
       {socialLinks.map((item) => (
@@ -77,7 +88,7 @@ export default function MisLinksView() {
       ))}
       <button
         className="w-full bg-slate-900 text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-slate-800 transition-all active:scale-[0.98] mt-4 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center h-[52px]"
-        onClick={() => mutate(user)}
+        onClick={handleSave}
         disabled={isPending}
       >
         {isPending ? (
