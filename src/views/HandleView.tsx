@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { toast } from "sonner";
 import { getUserByHandle } from "../api/DevTreeAPI";
 import type { SocialNetwork, User } from "../types";
@@ -181,6 +181,9 @@ function HandleContent({ data, theme }: HandleContentProps) {
       </main>
 
       <div className="mt-auto pt-16 flex flex-col items-center gap-2">
+        <Link to="/" className="text-sm font-bold text-current hover:underline">
+          Crea tu propio perfil aquí
+        </Link>
         <Footer className="py-2 text-xs font-medium opacity-50" />
       </div>
     </div>
