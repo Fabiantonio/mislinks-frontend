@@ -152,6 +152,12 @@ export default function LoginView() {
         >
           ¿No tienes cuenta? Regístrate
         </Link>
+        <Link
+          className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest hover:text-slate-900 dark:hover:text-white transition-colors"
+          to="/auth/forgot-password"
+        >
+          ¿Olvidaste tu contraseña?
+        </Link>
       </nav>
     </>
   );
