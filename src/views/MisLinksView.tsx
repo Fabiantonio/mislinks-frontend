@@ -38,14 +38,28 @@ export default function MisLinksView() {
     setSocialLinks(updatedData);
   }, []);
 
+  // Guarda los links en el caché respetando el orden que el usuario eligió
+  // arrastrando (esta vista mantiene su propio orden fijo, el del formulario)
+  const saveLinksInCache = (updatedLinks: SocialLinks[]) => {
+    queryClient.setQueryData(["user"], (prevData: User) => {
+      const order: string[] = JSON.parse(prevData.links).map(
+        (link: SocialLinks) => link.name,
+      );
+      const rank = (link: SocialLinks) => {
+        const index = order.indexOf(link.name);
+        return index === -1 ? order.length : index;
+      };
+      const sorted = [...updatedLinks].sort((a, b) => rank(a) - rank(b));
+      return { ...prevData, links: JSON.stringify(sorted) };
+    });
+  };
+
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const updatedLinks = socialLinks.map((link) =>
       link.name === e.target.name ? { ...link, url: e.target.value } : link,
     );
     setSocialLinks(updatedLinks);
-    queryClient.setQueryData(["user"], (prevData: User) => {
-      return { ...prevData, links: JSON.stringify(updatedLinks) };
-    });
+    saveLinksInCache(updatedLinks);
   };
 
   const handleEnableLink = (name: string) => {
@@ -60,9 +74,7 @@ export default function MisLinksView() {
       return link;
     });
     setSocialLinks(updatedLinks);
-    queryClient.setQueryData(["user"], (prevData: User) => {
-      return { ...prevData, links: JSON.stringify(updatedLinks) };
-    });
+    saveLinksInCache(updatedLinks);
   };
 
   const handleSave = () => {
@@ -73,7 +85,9 @@ export default function MisLinksView() {
       toast.error(`La URL de ${invalidLink.name} no es válida`);
       return;
     }
-    mutate(user);
+    // Leer el caché al momento de guardar: el arrastre lo modifica sin
+    // re-renderizar esta vista, así que `user` puede tener el orden anterior
+    mutate(queryClient.getQueryData<User>(["user"])!);
   };
 
   return (

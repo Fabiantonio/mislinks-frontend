@@ -1,13 +1,21 @@
 import { Link, Outlet } from "react-router-dom";
 import NavigationTabs from "./NavigationTabs";
 import { toast, Toaster } from "sonner";
-import { DndContext, type DragEndEvent, closestCenter } from "@dnd-kit/core";
+import {
+  DndContext,
+  type DragEndEvent,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
   arrayMove,
 } from "@dnd-kit/sortable";
-import type { SocialLinks, SocialNetwork, User } from "../types";
+import type { SocialLinks, User } from "../types";
 import { useEffect, useState } from "react";
 import MisLinksList from "./MisLinksList";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,7 +26,7 @@ type MisLinksProps = {
 };
 
 export default function MisLinks({ user }: MisLinksProps) {
-  const [activeLinks, setActiveLinks] = useState<SocialNetwork[]>(
+  const [activeLinks, setActiveLinks] = useState<SocialLinks[]>(
     JSON.parse(user.links).filter((link: SocialLinks) => link.enabled),
   );
 
@@ -30,12 +38,23 @@ export default function MisLinks({ user }: MisLinksProps) {
 
   const queryClient = useQueryClient();
 
+  // Distancia/retardo mínimo para que un clic en el enlace no inicie un arrastre
+  // y para que en móvil se pueda seguir haciendo scroll con el dedo
+  const sensors = useSensors(
+    useSensor(MouseSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200, tolerance: 8 },
+    }),
+  );
+
   const handleDragEnd = (e: DragEndEvent) => {
-    const prevIndex = activeLinks.findIndex((link) => link.id === e.active.id);
-    const newIndex = activeLinks.findIndex((link) => link.id === e.over?.id);
+    // Soltado fuera de la lista o en el mismo lugar: no hay nada que mover
+    if (!e.over || e.active.id === e.over.id) return;
+    const prevIndex = activeLinks.findIndex((link) => link.name === e.active.id);
+    const newIndex = activeLinks.findIndex((link) => link.name === e.over!.id);
     const order = arrayMove(activeLinks, prevIndex, newIndex);
     setActiveLinks(order);
-    const inactiveLinks: SocialNetwork[] = JSON.parse(user.links).filter(
+    const inactiveLinks: SocialLinks[] = JSON.parse(user.links).filter(
       (link: SocialLinks) => !link.enabled,
     );
     const links = [...order, ...inactiveLinks];
@@ -157,11 +176,12 @@ export default function MisLinks({ user }: MisLinksProps) {
 
                   <div className="w-full space-y-3 max-h-[400px] overflow-y-auto pr-1 custom-scrollbar">
                     <DndContext
+                      sensors={sensors}
                       collisionDetection={closestCenter}
                       onDragEnd={handleDragEnd}
                     >
                       <SortableContext
-                        items={activeLinks}
+                        items={activeLinks.map((link) => link.name)}
                         strategy={verticalListSortingStrategy}
                       >
                         {activeLinks.length > 0 ? (
