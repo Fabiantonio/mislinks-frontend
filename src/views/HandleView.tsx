@@ -118,11 +118,8 @@ function HandleContent({ data, theme }: HandleContentProps) {
 
         <div className="space-y-2">
           {data.name && (
-            <h1 className="text-2xl font-black tracking-tight">{data.name}</h1>
+            <h1 className="text-2xl font-black tracking-tight">@{data.handle}</h1>
           )}
-          <p className="text-xs font-black uppercase tracking-[0.2em] opacity-70">
-            @{data.handle}
-          </p>
         </div>
 
         {data.description && (
